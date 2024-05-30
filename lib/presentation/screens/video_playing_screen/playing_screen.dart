@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoPlayingScreen extends StatefulWidget {
@@ -14,7 +13,6 @@ class VideoPlayingScreen extends StatefulWidget {
 class _VideoPlayingScreenState extends State<VideoPlayingScreen> {
   bool isLoading = true;
   late YoutubePlayerController anController;
-  String youtubeLink = "https://www.youtube.com/watch?v=";
   @override
   void initState() {
     isLoading = true;
@@ -32,12 +30,21 @@ class _VideoPlayingScreenState extends State<VideoPlayingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            YoutubePlayer(
-              controller: anController,
-            ),
-          ],
+        child: YoutubePlayerBuilder(
+          player: YoutubePlayer(controller: anController),
+          builder: (context, player) {
+            return Column(
+              children: [
+                player,
+                Expanded(
+                  child: Container(
+                    
+                    color: Colors.amber,
+                  ),
+                )
+              ],
+            );
+          },
         ),
       ),
     );

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_video_player/presentation/screens/splash_screen.dart';
-
-import 'application/home_screen_bloc/home_screen_videos_bloc.dart';
+import 'package:go_video_player/provider/video_provider.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,11 +13,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiProvider(
       providers: [
-        BlocProvider(
-          create: (context) => HomeScreenVideosBloc(),
-        ),
+        ChangeNotifierProvider(create: (context) => VideoProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData(),
@@ -26,5 +23,6 @@ class MyApp extends StatelessWidget {
         home: const SplashScreen(),
       ),
     );
+    // );
   }
 }
